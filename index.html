@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Murder Party - Dossier Tournons d'Agenais — Générateur de partie</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🕵️ Murder Party - Dossier Tournons d'Agenais</h1>
+    <p class="sous-titre">Générateur de partie grandeur nature : ordres de mission, cartons tampons et récapitulatif de fin de partie.</p>
+    <nav class="onglets">
+      <button class="tab-btn active" data-tab="config">⚙️ Configuration</button>
+      <button class="tab-btn" data-tab="partie">🎮 Partie</button>
+      <button class="tab-btn" data-tab="recap">📄 Récapitulatif</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="tab-config" class="tab active">
+      <p class="aide">Remplis les trois bacs pour ton évènement, puis passe à l'onglet <b>Partie</b> pour générer la partie. Les données sont conservées sur cet ordinateur.</p>
+      <div class="bacs">
+        <div class="bac" data-bac="armes">
+          <h2>🔪 Bac ARMES</h2>
+          <p class="bac-regle">Chaque arme n'est attribuée qu'une seule fois.</p>
+          <form class="add-form">
+            <input type="text" maxlength="60" placeholder="Ex : fourchette, oreiller…" required>
+            <button type="submit" title="Ajouter">＋</button>
+          </form>
+          <ul class="liste"></ul>
+        </div>
+        <div class="bac" data-bac="lieux">
+          <h2>🚪 Bac LIEUX</h2>
+          <p class="bac-regle">Un lieu peut être attribué au maximum 2 fois.</p>
+          <form class="add-form">
+            <input type="text" maxlength="60" placeholder="Ex : cuisine, salle de bain…" required>
+            <button type="submit" title="Ajouter">＋</button>
+          </form>
+          <ul class="liste"></ul>
+        </div>
+        <div class="bac" data-bac="killers">
+          <h2>🕵️ Bac KILLERS</h2>
+          <p class="bac-regle">Les joueurs. Minimum 2 pour lancer une partie.</p>
+          <form class="add-form">
+            <input type="text" maxlength="60" placeholder="Prénom du joueur…" required>
+            <button type="submit" title="Ajouter">＋</button>
+          </form>
+          <ul class="liste"></ul>
+        </div>
+      </div>
+      <div id="config-resume" class="resume"></div>
+    </section>
+
+    <section id="tab-partie" class="tab">
+      <div id="partie-intro">
+        <h2>🎲 Générer une partie</h2>
+        <p class="aide">La boucle des missions est générée automatiquement : chaque killer doit amener sa victime dans son lieu et la toucher avec son arme, seul à seul dans la pièce. Celui qui tue récupère l'ordre de mission de sa victime. Il ne doit rester qu'un seul killer.</p>
+        <div id="partie-erreurs" class="erreurs" hidden></div>
+        <button id="btn-generer" class="gros-bouton">Générer la partie</button>
+        <button id="btn-regenerer" class="bouton-secondaire" hidden>🔄 Regénérer une nouvelle partie</button>
+      </div>
+
+      <div id="partie-jeu" hidden>
+        <div id="zone-tampon">
+          <div id="carton-tampon" class="carte-tampon">
+            <div class="tampon-icone">🃏</div>
+            <h2>CARTON TAMPON</h2>
+            <p id="tampon-texte" class="tampon-texte"></p>
+            <button id="btn-reveler" class="gros-bouton"></button>
+          </div>
+          <div id="mission-carte" class="mission-carte" hidden>
+            <h2>📜 ORDRE DE MISSION</h2>
+            <p class="mission-pour">pour <b id="mission-killer"></b></p>
+            <dl class="mission-details">
+              <div><dt>VICTIME</dt><dd id="mission-victime"></dd></div>
+              <div><dt>LIEU</dt><dd id="mission-lieu"></dd></div>
+              <div><dt>ARME</dt><dd id="mission-arme"></dd></div>
+            </dl>
+            <p class="aide">Amène ta victime dans le lieu et touche-la avec l'arme, sans que personne d'autre soit dans la pièce. Si tu réussis, tu récupères son ordre de mission.</p>
+            <button id="btn-passer" class="gros-bouton">J'ai retenu ma mission — remettre le carton tampon 🃏</button>
+          </div>
+          <div id="distribution-terminee" class="carte-tampon" hidden>
+            <div class="tampon-icone">✅</div>
+            <h2>Toutes les missions ont été distribuées</h2>
+            <p class="tampon-texte">Chaque killer connaît maintenant son ordre de mission. Bonne partie !</p>
+            <button id="btn-suivi" class="gros-bouton">Passer au suivi de partie</button>
+          </div>
+        </div>
+
+        <div id="suivi" hidden>
+          <h2>📋 Suivi de partie (écran du Maître du Jeu)</h2>
+          <p id="suivi-vivants" class="resume"></p>
+          <div id="suivi-form" class="suivi-form">
+            <label>Killer qui a tué :
+              <select id="select-tueur"></select>
+            </label>
+            <label>Sa victime :
+              <select id="select-victime"></select>
+            </label>
+            <button id="btn-meurtre" class="gros-bouton danger">Enregistrer le meurtre</button>
+          </div>
+          <div id="suivi-message" class="message" hidden></div>
+          <div id="suivi-gagnant" class="gagnant" hidden></div>
+          <h3>Historique des meurtres</h3>
+          <ul id="suivi-historique" class="liste-historique"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-recap" class="tab">
+      <h2>📄 Document récapitulatif de fin de partie</h2>
+      <p class="aide">Génère le document qui rappelle les rôles de chacun, pour vérifier que tout s'est bien passé. Télécharge-le ou imprime-le.</p>
+      <button id="btn-recap" class="gros-bouton">Générer le récapitulatif</button>
+      <div id="recap-actions" hidden>
+        <button id="btn-telecharger" class="bouton-secondaire">⬇️ Télécharger le document (.html)</button>
+        <button id="btn-imprimer" class="bouton-secondaire">🖨️ Imprimer</button>
+      </div>
+      <div id="recap-contenu"></div>
+    </section>
+  </main>
+
+  <script src="js/game.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
