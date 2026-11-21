@@ -286,11 +286,11 @@
       : "<p><b>Partie non terminée.</b> Killers encore en vie : " +
         e.vivants.map(escapeHTML).join(", ") + ".</p>";
     const date = new Date().toLocaleString("fr-FR");
-    return "<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"UTF-8\"><title>Récapitulatif de partie — Le Maître du Jeu</title>" +
+    return "<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"UTF-8\"><title>Récapitulatif de partie — Murder Party - Dossier Tournons d'Agenais</title>" +
       "<style>body{font-family:Arial,sans-serif;margin:40px;color:#1a1a1a;}h1{color:#8f1d2c;}table{border-collapse:collapse;width:100%;margin:16px 0;}" +
       "th,td{border:1px solid #999;padding:8px 12px;text-align:left;}th{background:#f0e6ea;}.date{color:#555;font-size:.9em;}</style></head><body>" +
       "<h1>📄 Récapitulatif de fin de partie</h1>" +
-      "<p class=\"date\">Généré le " + escapeHTML(date) + " — application « Le Maître du Jeu »</p>" +
+      "<p class=\"date\">Généré le " + escapeHTML(date) + " — application « Murder Party - Dossier Tournons d'Agenais »</p>" +
       "<h2>Ordres de mission distribués en début de partie</h2>" +
       "<table><thead><tr><th>Killer</th><th>Victime</th><th>Lieu</th><th>Arme</th></tr></thead><tbody>" +
       lignesInitiales + "</tbody></table>" +

@@ -1,6 +1,6 @@
 # murderpartyapp
 
-🕵️ **Le Maître du Jeu** — application **100 % locale** qui génère et accompagne une partie de jeu grandeur nature façon « Cluedo » : chaque joueur (KILLER) reçoit un **ORDRE DE MISSION** (une VICTIME, un LIEU et une ARME) et doit amener sa victime dans le lieu pour la toucher avec l'arme, seul à seul dans la pièce. Celui qui réussit un meurtre récupère l'ordre de mission de sa victime. Il ne doit rester qu'un seul killer à la fin.
+🕵️ **Murder Party - Dossier Tournons d'Agenais** — application **100 % locale** qui génère et accompagne une partie de jeu grandeur nature façon « Cluedo » : chaque joueur (KILLER) reçoit un **ORDRE DE MISSION** (une VICTIME, un LIEU et une ARME) et doit amener sa victime dans le lieu pour la toucher avec l'arme, seul à seul dans la pièce. Celui qui réussit un meurtre récupère l'ordre de mission de sa victime. Il ne doit rester qu'un seul killer à la fin.
 
 Aucun serveur, aucune installation : l'application s'ouvre dans le navigateur et fonctionne sur **Windows** comme sur **Linux (Ubuntu)**.
 
