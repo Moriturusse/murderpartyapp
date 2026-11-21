@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - "vibe/**"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on:
+      - ubuntu-latest
+      - windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Vérification de la syntaxe
+        run: |
+          node --check js/game.js
+          node --check js/app.js
+      - name: Tests de la logique de génération
+        run: node test/test-game.js
